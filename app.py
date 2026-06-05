@@ -171,10 +171,8 @@ with st.sidebar:
     st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
     all_sectors = ["All sectors"] + sorted(dec["Sector"].dropna().unique().tolist())
     sel_sector  = st.selectbox("Filter by sector", all_sectors)
-    st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
-    st.caption("Period: 2020-2024")
-    st.caption("N = 15 SMEs | 45 firm-year obs.")
-    st.caption("IRF - PCA-based composite index")
+    st.markdown("<div style='height:12px color:#F54927'></div>", unsafe_allow_html=True)
+  
 
 # ----------------------------------------------------------------
 # Helpers
@@ -213,7 +211,7 @@ if page == "Dashboard":
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div>
           <div class="page-title">Financial Resilience &amp; Governance Dashboard</div>
-          <div class="page-subtitle">Period: 2020-2024 | Tunisian Non-Listed SMEs | MPM Portfolio</div>
+          <div class="page-subtitle">Period: 2019-2024 | Tunisian Non-Listed SMEs | MPM Portfolio</div>
         </div>
         <div style="background:{NAVY};color:white;padding:7px 14px;border-radius:999px;font-size:11px;font-weight:700">
           ● Live data
@@ -300,20 +298,7 @@ if page == "Dashboard":
         st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
         card_end()
 
-    with cB:
-        card("Median FRI by Sector", "Kruskal-Wallis H=6.30, p=0.043 *")
-        ss = sect.sort_values("Median FRI", ascending=True)
-        bar_c = [TEAL if v >= 60 else (AMBER if v >= 50 else RED) for v in ss["Median FRI"]]
-        fig = go.Figure(go.Bar(
-            x=ss["Median FRI"], y=ss["Sector"], orientation="h",
-            marker_color=bar_c,
-            text=ss["Median FRI"], textposition="outside",
-            textfont=dict(color=TEXT, size=11)))
-        fig.update_layout(**blayout(height=300,
-            xaxis=dict(range=[0,80], gridcolor=GRID, color=TEXT),
-            yaxis=dict(color=TEXT, showgrid=False, automargin=True)))
-        st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
-        card_end()
+
 
     with cC:
         dec_s = dec.sort_values("Decision Score", ascending=False).reset_index(drop=True)
@@ -546,7 +531,5 @@ elif page == "Decision":
 # Footer
 # ----------------------------------------------------------------
 st.markdown(f"""
-<div class="footer-note">
-    IRF Dashboard | PCA-based Financial Resilience Index | Tunisian Non-Listed SMEs | MPM Portfolio | 2020-2024
-</div>
+
 """, unsafe_allow_html=True)
