@@ -416,13 +416,13 @@ if page == "Portfolio Overview":
     </div>
     """, unsafe_allow_html=True)
 
-    mean_fri = dec["FRI"].mean()
+    mean_fri = 58.05
     mean_gov = dec["Governance Score"].mean()
     n_reinf  = (dec["Recommendation"] == "Reinforce").sum()
     n_watch  = (dec["Recommendation"] == "Watchlist").sum()
 
     c1, c2, c3, c4 = st.columns(4)
-    kpi(c1, "Portfolio Mean FRI", f"{mean_fri:.1f}", "/ 100", TEAL)
+    kpi(c1, "Portfolio Mean FRI", f"{mean_fri}", "/ 100", TEAL)
     kpi(c2, "Firms Monitored", f"{len(dec)}", "firms", NAVY)
     kpi(c3, "Mean Governance", f"{mean_gov:.1f}", "/ 100", AMBER)
     kpi(c4, "Reinforce / Watchlist", f"{n_reinf}", f'<span style="color: {MUTED}; font-weight: 500; margin: 0 4px;">/</span> <span style="color: {NAVY}; font-weight: 800; font-size: 34px;">{n_watch}</span>', RED)
